@@ -25,7 +25,7 @@ def research(state: NewsletterState) -> dict:
         # --- Step 2: Fetch results from Tavily API ---
         try:
             results = tavily_client.search(query=query,
-                                           max_results=5,
+                                           max_results=10,
                                            exclude_domains=BLACKLIST_DOMAINS,
                                            days=7)
         except Exception as e:
@@ -59,7 +59,7 @@ def research(state: NewsletterState) -> dict:
         candidates.sort(key=lambda x: x["score"], reverse=True)
 
         # --- Step 5: Build Article objects and add to result list ---
-        for article in candidates[:2]:
+        for article in candidates[:3]:
             url = article["url"]
             seen_urls.add(url)
             all_articles.append(Article(
