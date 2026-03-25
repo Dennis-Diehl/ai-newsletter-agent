@@ -205,3 +205,10 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Playwright
+.playwright/
+playwright-browsers/
+.DS_Store
+
+docs/
