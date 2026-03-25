@@ -68,7 +68,12 @@ async def _scrape_url(url: str) -> str:
     try:
         downloaded = await asyncio.to_thread(trafilatura.fetch_url, url)
         if downloaded:
-            text = await asyncio.to_thread(trafilatura.extract, downloaded)
+            text = await asyncio.to_thread(
+                trafilatura.extract, downloaded,
+                output_format="markdown",
+                include_links=False,
+                include_images=False,
+            )
             if text and len(text) > 600 and not _is_blocked(text):
                 return text[:MAX_CONTENT_LENGTH]
     except Exception:
@@ -107,7 +112,12 @@ async def _scrape_url(url: str) -> str:
             await browser.close()
 
             # Use Trafilatura to extract clean article text from the rendered HTML
-            text = await asyncio.to_thread(trafilatura.extract, html)
+            text = await asyncio.to_thread(
+                trafilatura.extract, html,
+                output_format="markdown",
+                include_links=False,
+                include_images=False,
+            )
             if text and len(text) > 600 and not _is_blocked(text):
                 return text[:MAX_CONTENT_LENGTH]
     except Exception as e:
