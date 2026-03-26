@@ -212,3 +212,6 @@ playwright-browsers/
 .DS_Store
 
 docs/
+
+# Generated newsletter test previews
+tests/preview/

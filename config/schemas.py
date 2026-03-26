@@ -16,11 +16,9 @@ class Summary(BaseModel):
     company: str
     summary_text: str
     key_points: list[str] = []
+    report_text: str = ""
 
 
 # --- Newsletter ---
 class Newsletter(BaseModel):
-    title: str
-    date: str
-    sections: list[Summary]
     html_content: str = ""
