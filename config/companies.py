@@ -3,12 +3,26 @@ from typing import List, TypedDict
 
 # --- Filter Lists ---
 BLACKLIST_DOMAINS = [
+    # Known spam / low-quality sources
     "ts2.tech",
     "biztoc.com",
     "bignewsnetwork.com",
     "fagenwasanni.com",
     "crypto.news",
     "investing.com",
+    # Paywalled — scraping fails consistently
+    "forbes.com",
+    "bloomberg.com",
+    "ft.com",
+    # Technical scraping failures
+    "eetasia.com",
+    # Non-article content (video, social media)
+    "youtube.com",
+    "instagram.com",
+    # Crypto / finance noise
+    "coinmarketcap.com",
+    "mexc.com",
+    "aastocks.com",
 ]
 
 
