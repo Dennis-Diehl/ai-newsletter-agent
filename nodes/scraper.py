@@ -20,7 +20,7 @@ BLOCK_TRIGGERS = [
 ]
 
 # Maximum text length passed to the summarizer: keeps LLM token usage in check
-MAX_CONTENT_LENGTH = 10000
+MAX_CONTENT_LENGTH = 6000
 
 # Maximum number of concurrent browser instances: prevents RAM overload
 MAX_CONCURRENCY = 3
@@ -50,7 +50,7 @@ async def scrape(state: NewsletterState) -> dict:
 
     # Pair each article with its scraped text but skip articles with no content
     raw_articles = [
-        Article(url=article.url, title=article.title, raw_text=text, company=article.company)
+        Article(url=article.url, title=article.title, raw_text=text, company=article.company, published_date=article.published_date)
         for article, text in zip(articles, texts)
         if text
     ]

@@ -7,11 +7,13 @@ class Article(BaseModel):
     title: str
     raw_text: str = ""
     company: str
+    published_date: str = ""
 
 
 # --- Summary ---
 class Summary(BaseModel):
-    article: Article
+    articles: list[Article]
+    company: str
     summary_text: str
     key_points: list[str] = []
 
