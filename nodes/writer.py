@@ -1,7 +1,7 @@
 import json
 import asyncio
 import re
-from datetime import date
+from datetime import date, timedelta
 
 from google import genai
 from google.genai import types
@@ -13,8 +13,10 @@ from nodes.summarizer import company_list_str
 # --- Client ---
 gemini_client = genai.Client(api_key=GEMINI_API_KEY)
 
-# Built once at startup and injected into REPORT_PROMPT
-today_date = date.today().isoformat()
+# date used in the prompt and the HTML header
+_today = date.today()
+today_date = _today.isoformat()
+date_range = f"{(_today - timedelta(days=6)).strftime('%d.%m.%Y')} – {_today.strftime('%d.%m.%Y')}"
 
 # --- Prompt: Report generation ---
 # Receives key_points for ONE company and produces a single prose paragraph.
@@ -105,7 +107,7 @@ async def write(state: NewsletterState) -> dict:
                     break
 
     # --- Step 2: Build the HTML newsletter from all summaries ---
-    html = _build_html(summaries, today_date)
+    html = _build_html(summaries, date_range)
     newsletter = Newsletter(html_content=html)
 
     return {"summaries": summaries, "newsletter": newsletter}
