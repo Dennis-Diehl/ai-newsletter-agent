@@ -1,6 +1,5 @@
 langgraph==1.1.2
-langchain-groq==1.1.2
-langchain-google-genai==4.2.1
+google-genai
 tavily-python==0.7.23
 playwright==1.58.2
 python-dotenv==1.2.2
