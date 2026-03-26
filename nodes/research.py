@@ -26,6 +26,7 @@ def research(state: NewsletterState) -> dict:
         try:
             results = tavily_client.search(query=query,
                                            max_results=10,
+                                           topic="news",
                                            exclude_domains=BLACKLIST_DOMAINS,
                                            days=7)
         except Exception as e:
