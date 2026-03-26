@@ -42,7 +42,7 @@ def research(state: NewsletterState) -> dict:
             keywords_match = any(kw.lower() in title or kw.lower() in content for kw in ckeyword)
 
             # Skip low-relevance results
-            if tavily_score < 0.5:
+            if tavily_score < 0.4:
                 continue
 
             # Skip already seen URLs (deduplication across all companies)
@@ -53,13 +53,18 @@ def research(state: NewsletterState) -> dict:
             if not keywords_match:
                 continue
 
+            # Skip tag/listing/category pages — no actual article content
+            LISTING_PATH_PATTERNS = ["/tag/", "/topic/", "/topics/", "/category/", "/news/latest", "/changelog/"]
+            if any(pattern in url for pattern in LISTING_PATH_PATTERNS):
+                continue
+
             candidates.append(article)
 
         # --- Step 4: Sort by relevance score and keep only the top 2 ---
         candidates.sort(key=lambda x: x["score"], reverse=True)
 
         # --- Step 5: Build Article objects and add to result list ---
-        for article in candidates[:3]:
+        for article in candidates[:2]:
             url = article["url"]
             seen_urls.add(url)
             all_articles.append(Article(
@@ -67,6 +72,7 @@ def research(state: NewsletterState) -> dict:
                 url=url,
                 raw_text="",
                 company=cname,
+                published_date=article.get("published_date", ""),
             ))
 
     return {"search_results": all_articles, "existing_urls": seen_urls}
