@@ -4,10 +4,7 @@ import os
 # Load environment variables from .env file
 load_dotenv()
 
-# Groq API key — for summarization (Llama 3.3 70B)
-GROQ_API_KEY = os.getenv('GROQ_API_KEY')
-
-# Google Gemini API key — for writing the newsletter (Gemini 2.0 Flash)
+# Google Gemini API key — for scoring, summarization, and newsletter writing
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 # Tavily API key — for web search
