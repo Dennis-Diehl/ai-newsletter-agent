@@ -213,5 +213,5 @@ playwright-browsers/
 
 docs/
 
-# Generated newsletter test previews
-tests/preview/
+# Tests
+tests/
