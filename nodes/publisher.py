@@ -74,7 +74,7 @@ async def publish(state: NewsletterState) -> dict:
                 smtp.login(EMAIL_USER, EMAIL_PASS)   # Authenticate with app password.
                 smtp.send_message(msg)
             print("[publisher] sent.")
-            return {"sent": True}
+            return {"sent": True, "newsletter_pdf": pdf_bytes}
 
         except (smtplib.SMTPException, OSError) as e:
             if attempt < 2:
@@ -85,4 +85,4 @@ async def publish(state: NewsletterState) -> dict:
             else:
                 print(f"[publisher] failed to send after 3 attempts: {e}")
 
-    return {"sent": False}
+    return {"sent": False, "newsletter_pdf": pdf_bytes}

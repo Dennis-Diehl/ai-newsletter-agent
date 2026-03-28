@@ -10,4 +10,5 @@ class NewsletterState(TypedDict):
     raw_articles: list[Article]
     summaries: list[Summary]
     newsletter: Newsletter | None
+    newsletter_pdf: bytes | None
     sent: bool
