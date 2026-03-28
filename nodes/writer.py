@@ -29,6 +29,12 @@ Your goal: Write a single cohesive paragraph about ONE company based on the key 
     - You are ONLY allowed to report on these companies: **[{company_list_str}]**.
     - If a summary is under 'OTHER INDUSTRY NEWS' but not about a target company, IGNORE IT.
 
+**CRITICAL: CITATIONS**:
+    - You will receive a list of SOURCE ARTICLES at the top of the input (title → url).
+    - You MUST ONLY use URLs from this list for citations.
+    - Do NOT invent URLs or use URLs from your training data.
+    - Use the article title to match the right URL to the right claim.
+
 **CRITICAL: NO DUPLICATE SECTIONS**:
     - The news has been grouped for you by company.
     - Write exactly ONE section per company.
@@ -71,13 +77,19 @@ async def write(state: NewsletterState) -> dict:
 
     # --- Step 1: Generate report_text for each company ---
     for summary in summaries:
+        # key points for each company
         points_str = "\n".join(f"- {p}" for p in summary.key_points)
+
+        # article urls for proper citation in detailed reports
+        sources_str = "\n".join(f"- {a.title} -> {a.url}" for a in summary.articles)
+
+        user_prompt = f"SOURCE ARTICLES:\n{sources_str}\n\nKEY POINTS:\n{points_str}"
 
         for attempt in range(3):
             try:
                 response = await gemini_client.aio.models.generate_content(
                     model="gemini-2.5-flash",
-                    contents=points_str,
+                    contents=user_prompt,
                     config=_report_config,
                 )
                 report_text = json.loads(response.text).get("report_text", "")
