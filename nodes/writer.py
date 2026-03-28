@@ -133,7 +133,7 @@ def _build_html(summaries: list, date: str) -> str:
 <html>
 <head>
     <style>
-        body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; color: #222; }}
+        body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 24px; color: #222; }}
         h1 {{ border-bottom: 2px solid #222; padding-bottom: 8px; }}
         h2 {{ margin-top: 40px; border-bottom: 1px solid #ccc; padding-bottom: 6px; }}
         h3 {{ margin-top: 32px; margin-bottom: 4px; }}
