@@ -27,7 +27,7 @@ This project demonstrates a production-grade agentic workflow using **LangGraph*
 The system is architected as a stateful graph using **LangGraph**, where a typed `NewsletterState` dictionary is passed between specialized nodes. An **AsyncIO** event loop handles concurrent scraping and API calls efficiently throughout the pipeline.
 
 ```mermaid
-graph LR
+flowchart LR
     A[Research Node] --> B[Scraper Node]
     B --> C[Summarizer Node]
     C --> D[Writer Node]
